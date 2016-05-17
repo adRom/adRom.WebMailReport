@@ -4,7 +4,6 @@
 		<title>Index</title>
 	</head>
 	<body>
-	
 		<?php
 			include_once 'config.php';
 			
