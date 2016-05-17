@@ -5,25 +5,25 @@ class Database {
 	var $mysqliResult;
 	
 	function __construct() {
-       $this->mysqliResult = array(
+		$this->mysqliResult = array(
 			"ok" => true,
 			"msg" => "",
 			"stmt" => null
 		);
 	}
-   
-   function insert_sendlog($conn, $jsondata, $db_prefix, $db_table){
+
+	function insert_sendlog($conn, $jsondata, $db_prefix, $db_table){
 	
-		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, reason, delivered, type) VALUES (?,?,?,?,?,?,?)");			
+		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, reason, delivered, type) VALUES (?,?,?,?,?,?,?)");
 		
 		if($stmt == false)
 		{
-		  $this->mysqliResult['ok'] = false;	
-		  $this->mysqliResult['msg'] = 'prepare() failed: ' . htmlspecialchars($conn->error);
+			$this->mysqliResult['ok'] = false;	
+			$this->mysqliResult['msg'] = 'prepare() failed: ' . htmlspecialchars($conn->error);
 		}
 		else 
 		{		
-			$stmt->bind_param("sssssii", $returnPath, $recipient, $transactionId, $timestamp, $reason, $delivered, $type);						
+			$stmt->bind_param("sssssii", $returnPath, $recipient, $transactionId, $timestamp, $reason, $delivered, $type);
 			foreach($jsondata as $item)
 			{
 				$recipient = $item['recipient'];
@@ -43,11 +43,11 @@ class Database {
 			$this->mysqliResult['stmt'] = $stmt;
 		}
 		return $this->mysqliResult;
-   }
-   
-   function insert_bounce($conn, $jsondata, $db_prefix, $db_table){
+	}
+
+	function insert_bounce($conn, $jsondata, $db_prefix, $db_table){
 	
-		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, bounceType, reason, type) VALUES (?,?,?,?,?,?,?)");					
+		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, bounceType, reason, type) VALUES (?,?,?,?,?,?,?)");
 		
 		if($stmt == false)
 		{
@@ -56,7 +56,7 @@ class Database {
 		}
 		else 
 		{		
-			$stmt->bind_param("ssssssi", $returnPath, $recipient, $transactionId, $timestamp, $bounceType, $reason, $type);				
+			$stmt->bind_param("ssssssi", $returnPath, $recipient, $transactionId, $timestamp, $bounceType, $reason, $type);
 			foreach($jsondata as $item)
 			{
 				$recipient = $item['recipient'];
@@ -69,16 +69,16 @@ class Database {
 				$type = 1;			
 				
 				if($stmt->execute() === FALSE){
-					$this->mysqliResult['ok'] = false;						
+					$this->mysqliResult['ok'] = false;
 					$this->mysqliResult['msg'] = "BOUNCE could not be inserted" ."\n";
 				}
 			}
 			$this->mysqliResult['stmt'] = $stmt;
 		}
 		return $this->mysqliResult;
-   }
+	}
 
-   function insert_feedbackloop($conn, $jsondata, $db_prefix, $db_table){
+	function insert_feedbackloop($conn, $jsondata, $db_prefix, $db_table){
 	
 		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, mailingId, type) VALUES (?,?,?,?,?,?)");
 		
@@ -89,7 +89,7 @@ class Database {
 		}
 		else 
 		{		
-			$stmt->bind_param("ssssii", $returnPath, $recipient, $transactionId, $timestamp, $mailingId, $type);			
+			$stmt->bind_param("ssssii", $returnPath, $recipient, $transactionId, $timestamp, $mailingId, $type);
 			foreach($jsondata as $item)
 			{
 				$recipient = $item['recipient'];
@@ -100,15 +100,14 @@ class Database {
 				$type = 3;			
 				
 				if($stmt->execute() === FALSE){
-					$this->mysqliResult['ok'] = false;						
+					$this->mysqliResult['ok'] = false;
 					$this->mysqliResult['msg'] = "FEEDBACKLOOP could not be inserted" ."\n";
 				}
 			}	
 			$this->mysqliResult['stmt'] = $stmt;
 		}
 		return $this->mysqliResult;
-   }
-   
 }
 
+}
 ?>

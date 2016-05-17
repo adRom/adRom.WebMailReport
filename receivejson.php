@@ -42,11 +42,11 @@ if(!empty($jsondata)){
 	
 	if(isset($jsondata[0]['delivered'])){
 		//sendlog	
-		$mysqliResult = $database->insert_sendlog($conn, $jsondata, $db_prefix, $db_table);				
+		$mysqliResult = $database->insert_sendlog($conn, $jsondata, $db_prefix, $db_table);
 	} 
 	else if(isset($jsondata[0]['mailingId'])){
 		//feedbackloop		
-		$mysqliResult = $database->insert_feedbackloop($conn, $jsondata, $db_prefix, $db_table);		
+		$mysqliResult = $database->insert_feedbackloop($conn, $jsondata, $db_prefix, $db_table);
 	}
 	else {
 		//bounce

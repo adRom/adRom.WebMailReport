@@ -1,10 +1,10 @@
 <?php
-
+include_once '/enums/QueueTypes.php';
 //Datenbank
 $db_host = "localhost"; //Datenbank-Host
 $db_user = "root"; //Datenbank-Benutzer
 $db_pass = ""; //Datenbank-Passwort
-$db_name = ""; //Datenbank-Name
+$db_name = "wordpress_one"; //Datenbank-Name
 $db_prefix = "adrom_"; //Präfix der Datenbank-Tabelle
 $db_table = "mailreport"; //Name der Datenbank-Tabelle
 

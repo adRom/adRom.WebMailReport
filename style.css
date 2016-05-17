@@ -1,0 +1,142 @@
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #333;
+	background-color: #fff;
+}
+
+.alert {
+	width: 410px;
+	margin: 0 auto;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.alert-success {
+	color: #3c763d;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+}
+.alert-danger {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+*{
+	font-family:verdana;
+	font-size:9pt;
+}
+
+h1{
+	color:#008ae3;
+	font-size:20pt;
+}
+
+.alignRight{
+	text-align:right !important;
+}
+.bold{
+	font-weight:bold !important;
+}
+
+form.searchForm {    
+	border: 1px solid #e2e2e2;	
+	padding: 6px;
+	float: left;
+}
+form.searchForm label{
+	font-weight:bold;
+}
+
+.adromMailReport{
+	border:1px solid #a7a7a7;	
+	width:100%;	
+	border-collapse:collapse;
+	border-spacing:0;
+}
+.adromMailReport th{
+	border:1px solid #e2e2e2;
+	background-color:#008ae3;
+	color:#ffffff;
+	padding:10px;
+	text-align:left;
+}
+.adromMailReport td{
+	padding:6px 10px;
+	border:1px solid #e2e2e2;
+}
+.adromMailReport tr.Bounce{
+	background-color:#EFEEFF;
+}
+.adromMailReport tr.SendLog{
+	background-color:#E6FFDF;
+}
+.adromMailReport tr.FeedbackLoop{
+	background-color:#FFFEE1;
+}
+
+.paginWrapper {
+	padding-top:2px;
+}
+
+.paginWrapper a,
+.paginWrapper span{
+	text-decoration:none;
+	color:#000;
+	border:1px solid #e2e2e2;
+	border-right-width:0px;
+	padding:6px;
+	padding-left:10px;
+	padding-right:10px;
+	float:left;
+}
+
+.paginWrapper a:last-child{
+	border-right-width:1px;	
+}
+
+.paginWrapper a.active{
+	font-weight:bold;
+	color:#ffffff;
+	background-color:#008ae3;
+}
+
+.warning {
+	color:#B30000;
+	font-weight: bold;
+	margin: 10px 0 0 0;
+}
+
+.countTable{
+	margin-top:20px;
+	width: 300px;	
+	border-collapse:collapse;
+	border-spacing:0;
+}
+.countTable th{
+	text-align:left;
+}
+.countTable thead td{
+	background-color: #E6E6E6;
+}
+.countTable td{
+    border: 1px solid #C3C3C3;
+}
+.countTable tr.Bounce{
+	background-color:#EFEEFF;
+}
+.countTable tr.SendLog{
+	background-color:#E6FFDF;
+}
+.countTable tr.FeedbackLoop{
+	background-color:#FFFEE1;
+}
+.version{
+	float: right;
+	padding: 4px;
+	font-size: 10px;
+	margin-top: 10px;
+}
