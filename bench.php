@@ -40,7 +40,7 @@ class timer {
 
 class Debugger {
 
-	function __constructor(){ }
+	function __constructor(){}
 	
 	function writeLog($jsondata){
 		$fp = fopen('logger.log','a');		
@@ -75,8 +75,8 @@ class Debugger {
 
 		$jsondata = array();
 		for ($i = 1; $i <= 1000; $i++) {
-			//$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "returnPathDomain" => "D", "mailingId" => $i,); //feedbackloop
-			$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "delivered" => true, "returnPath" => $i, "reason" => 'r'); //sendlog
+			$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "returnPathDomain" => "D", "mailingId" => $i,); //feedbackloop
+			//$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "delivered" => true, "returnPath" => $i, "reason" => 'r'); //sendlog
 			//$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "returnPath" => $i, "reason" => 'r', 'bounceType' => 1); //bounce
 		}
 		return $jsondata;
