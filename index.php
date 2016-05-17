@@ -126,7 +126,7 @@
 		if($total_records > 0){
 		?>
 
-		<div class="paginWrapper">
+		<div class="pagingWrapper">
 			
 			<?php 		
 				//If the current page is more than 1, show the First and Previous links		
