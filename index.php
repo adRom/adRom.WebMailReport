@@ -4,6 +4,7 @@
 		<title>Index</title>
 	</head>
 	<body>
+	
 		<?php
 			include_once 'config.php';
 			
@@ -83,13 +84,9 @@
 		 <tbody>
 		<?php 
 		$stmt->bind_result($id, $returnPath, $recipient, $transactionId, $timestamp, $bounceType, $reason, $mailingId, $delivered, $type);
-		while ($stmt->fetch()) {
-			$typeArray = array(1 => "Bounce", 2 => "SendLog", 3 => "FeedbackLoop");
+		while ($stmt->fetch()) {				
 		?> 
-			<tr class="<?php 
-				echo isset($typeArray[$type]) ? $typeArray[$type] : $typeArray[1];
-				//QueueType				
-			?>">
+			<tr class="<?php echo QueueType::getName($type); ?>">
 				<td><?php echo date('d.m.Y H:i:s',strtotime($timestamp)); ?></td>
 				<td><?php echo $recipient; ?></td>		
 				<?php if($returnPathVisible == true){ ?>
@@ -103,8 +100,8 @@
 						echo $delivered == 1 ? "Yes" : 'No'; 
 					}
 				?></td>
-				<td><?php 			
-					echo isset($typeArray[$type]) ? $typeArray[$type] : $typeArray[1];
+				<td><?php 								
+					echo QueueType::getName($type);
 				?></td>
 			</tr>
 		<?php 
@@ -185,9 +182,9 @@
 			echo '<div class="warning">No records found.</div>';
 		}
 
-		$countArray = array("1" => "Bounce", "2" => "SendLog", "3" => "FeedbackLoop");
+		$countArray = QueueType::getAll();
 		$resultArray = array();
-		foreach($countArray as $key => $ca){
+		foreach($countArray as $ca => $key){
 			$bounceResult = $conn->query("SELECT COUNT(id) FROM `".$db_prefix . $db_table."` WHERE type=". $key .";");	
 			$result = $bounceResult->fetch_row();
 			$resultArray[$ca] = $result[0];
@@ -207,7 +204,7 @@
 				echo '<tr class="'.$key.'"> <td>'.$key.'</td> <td class="alignRight">'.number_format($ra, 0, ",", ".").'</td> </tr>';
 			}
 		echo '</tbody>
-			</table>';	
+			</table>';
 		?>
 	
 	</body>

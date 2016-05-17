@@ -1,4 +1,5 @@
 <?php
+include_once '/enums/QueueTypes.php';
 
 class Database {
 	
@@ -33,7 +34,7 @@ class Database {
 				$delivered = $item['delivered'];
 				$reason = $item['reason'];
 				$reason = $conn->real_escape_string($reason);
-				$type = 2;
+				$type = QueueType::SendLog;
 				
 				if($stmt->execute() === FALSE){
 					$this->mysqliResult['ok'] = false;	
@@ -66,7 +67,7 @@ class Database {
 				$bounceType = $item['bounceType'];
 				$reason = $item['reason'];
 				$reason = $conn->real_escape_string($reason);
-				$type = 1;			
+				$type = QueueType::Bounce;			
 				
 				if($stmt->execute() === FALSE){
 					$this->mysqliResult['ok'] = false;
@@ -84,8 +85,8 @@ class Database {
 		
 		if($stmt == false)
 		{
-		  $this->mysqliResult['ok'] = false;	
-		  $this->mysqliResult['msg'] = 'prepare() failed: ' . htmlspecialchars($conn->error);
+			$this->mysqliResult['ok'] = false;	
+			$this->mysqliResult['msg'] = 'prepare() failed: ' . htmlspecialchars($conn->error);
 		}
 		else 
 		{		
@@ -97,7 +98,7 @@ class Database {
 				$timestamp = $item['timestamp'];
 				$returnPath = $item['returnPathDomain'];
 				$mailingId = $item['mailingId'];
-				$type = 3;			
+				$type = QueueType::FeedbackLoop;			
 				
 				if($stmt->execute() === FALSE){
 					$this->mysqliResult['ok'] = false;
