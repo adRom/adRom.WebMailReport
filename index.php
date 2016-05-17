@@ -1,12 +1,16 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="style.css">
-		<title>Index</title>
+		<title>adRom MailReport</title>
 	</head>
 	<body>
 	
 		<?php
 			include_once 'config.php';
+			$installFile = "install.php";
+			if (file_exists($installFile)) {
+				echo '<div class="alert alert-danger" role="alert"><strong>Warning:</strong> Please delete the <strong>'. $installFile .'</strong></div>';				
+			}
 			
 			$conn = @new mysqli($db_host, $db_user, $db_pass, $db_name);
 			if ($conn->connect_error)
@@ -48,7 +52,7 @@
 		?>
 
 		<a href="index.php" style="text-decoration:none;">
-			<h1>adRom Mail Report</h1>
+			<h1>adRom MailReport</h1>
 		</a>
 		
 		<form action="index.php" method="GET" class="searchForm">
@@ -145,8 +149,7 @@
 				}
 				
 				//If the current page >= $max then show link to 1st page
-				if($page >= $max){
-			
+				if($page >= $max){			
 					echo "<a href='index.php?page=1' title='Page 1'>1</a>";
 					echo "<span>..</span>";
 				}
@@ -155,11 +158,11 @@
 					if($i > $total_pages){
 						continue;
 					}
+					$linkClass = "";
 					if($page == $i) {
-						echo '<a class="active" href="index.php?page='.$i.'" title="Page '.$i.'">'. $i .'</a>';
-					} else {
-						echo '<a class="" href="index.php?page='.$i.'" title="Page '.$i.'">'. $i .'</a>';
-					}		
+						$linkClass = "active";
+					}
+					echo '<a class="'. $linkClass .'" href="index.php?page='.$i.'" title="Page '.$i.'">'. $i .'</a>';
 				}
 				
 				if($page < ($total_pages - floor($max / 2))){
@@ -185,7 +188,7 @@
 		$countArray = QueueType::getAll();
 		$resultArray = array();
 		foreach($countArray as $ca => $key){
-			$bounceResult = $conn->query("SELECT COUNT(id) FROM `".$db_prefix . $db_table."` WHERE type=". $key .";");	
+			$bounceResult = $conn->query("SELECT COUNT(id) FROM `".$db_prefix . $db_table."` WHERE type=". $key .";");
 			$result = $bounceResult->fetch_row();
 			$resultArray[$ca] = $result[0];
 		}
