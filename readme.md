@@ -16,3 +16,24 @@ version | 1.4.1
 4. optional kann die ".../adrom-mail-report/install.php" gelöscht werden
 5. bei einem bounce/feedbackloop/sendlog wird die "receivejson.php" aufgerufen, welche den neu erstellten Table befüllt.
 6. für eine Übersicht der Bounces bitte "index.php" aufrufen
+
+### **zusätzliche Infos**
+##### - $benchmark
+wird die Variable **$benchmark** innerhalb von *receivejson.php* auf **true** gesetzt
+
+```php
+$benchmark = true;
+```
+so werden **Testdaten** generiert und in die Datenbank gespeichert, zusätzlich wird eine **timer.log**-Datei erstellt welches Folgendes beinhaltet: 
+* Anzahl der gespeicherten Datensätze
+* Dauer die für das Speichern benötigt wurde
+
+`Achtung: solange $benchmark den Wert "true" beinhaltet, werden alle empfangene Datensätze mit den Testdaten überschrieben`
+
+##### - $logging
+wird die Variable **$logging** innerhalb von *receivejson.php* auf **true** gesetzt
+
+```php
+$logging = true;
+```
+so werden alle Datensätze die erhalten worden sind, in eine **logger.log**-Datei gespeichert.
