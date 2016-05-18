@@ -17,7 +17,7 @@ version | 1.4.1
 5. bei einem bounce/feedbackloop/sendlog wird die "receivejson.php" aufgerufen, welche den neu erstellten Table befüllt.
 6. für eine Übersicht der Bounces bitte "index.php" aufrufen
 
-### **zusätzliche Infos**
+### *zusätzliche Infos*
 ##### - $benchmark
 wird die Variable **$benchmark** innerhalb von *receivejson.php* auf **true** gesetzt
 
