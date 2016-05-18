@@ -1,6 +1,7 @@
 <?php
 
-class timer {
+class Timer {
+
 	var $start;
 	var $pause_time;
 
@@ -38,12 +39,12 @@ class timer {
 	}
 }
 
-class Debugger {
+class Logger {
 
 	function __constructor(){}
 	
 	function writeLog($jsondata){
-		$fp = fopen('logger.log','a');		
+		$fp = fopen('logger.log','a');
 		$time = date('d.m.Y h:i:s -->: ', time());
 		$msg = "------------------------------------------------------------------------------------------------ \n". $time . ": \n" . print_R($jsondata, true).
 		"\n------------------------------------------------------------------------------------------------\n";
@@ -53,7 +54,7 @@ class Debugger {
 		fclose($fp);
 	}
 	
-	function writeTimeLog($processing_time, $count){		
+	function writeTimeLog($processing_time, $count){
 		$fp = fopen('timer.log','a');
 		fwrite($fp,$processing_time ." s for " . $count ." items." . "\n");
 		fflush($fp);

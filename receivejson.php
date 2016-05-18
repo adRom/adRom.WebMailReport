@@ -5,7 +5,7 @@ include_once 'bench.php';
 include_once 'config.php';
 
 $database = new Database();
-$debugger = new Debugger();
+$logger = new Logger();
 
 $benchmark = false;
 $logging = false;
@@ -17,18 +17,18 @@ $data = file_get_contents('php://input');
 $jsondata = json_decode($data,true);
 
 if($benchmark){
-	$timer = new timer(1);
-	$jsondata = $debugger->createFakeData(); //create fakedata 
+	$timer = new Timer(1);
+	$jsondata = $logger->createFakeData(); //create fakedata 
 }
 
-if($logging){ $debugger->writeLog($jsondata); }
+if($logging){ $logger->writeLog($jsondata); }
 
 // Create connection
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 // Check connection
 if ($conn->connect_error) {	
-	$debugger->writeError($conn->connect_error);	
+	$logger->writeError($conn->connect_error);	
 	exit();
 }
 
@@ -59,15 +59,15 @@ if(!empty($jsondata)){
 		$mysqliResult['stmt']->close();
 	} else {
 		$errorMsg = $mysqliResult['msg'] ." ". print_R($jsondata,true);
-		$debugger->writeError($errorMsg);
+		$logger->writeError($errorMsg);
 	}	
 		
 } else {
 	$mysqliResult['ok'] = false;	
-	$debugger->writeError("JsonData was empty.");
+	$logger->writeError("JsonData was empty.");
 }
 
-if($benchmark && $mysqliResult['ok']){ $debugger->writeTimeLog($timer->get(), count($jsondata));}
+if($benchmark && $mysqliResult['ok']){ $logger->writeTimeLog($timer->get(), count($jsondata));}
 
 $jsonresult = array( "successful" => $mysqliResult['ok']);
 echo json_encode($jsonresult);
