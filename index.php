@@ -6,11 +6,8 @@
 	<body>
 	
 		<?php
-			include_once 'config.php';
-			$installFile = "install.php";
-			if (file_exists($installFile)) {
-				echo '<div class="alert alert-danger" role="alert"><strong>Warning:</strong> Please delete the <strong>'. $installFile .'</strong></div>';				
-			}
+			include 'config.php';
+			include '/enums/QueueTypes.php';
 			
 			$conn = @new mysqli($db_host, $db_user, $db_pass, $db_name);
 			if ($conn->connect_error)
@@ -24,6 +21,11 @@
 			if(empty($tableExist)){
 				echo '<div class="alert alert-danger" role="alert">Table does not exist, call <a href="install.php" target="_blank"><b>install.php</b></a> at first</div>';
 				exit;
+			} else {
+				$installFile = "install.php";
+				if (file_exists($installFile)) {
+					echo '<div class="alert alert-danger" role="alert"><strong>Warning:</strong> Please delete the <strong>'. $installFile .'</strong></div>';				
+				}
 			}
 
 			if (isset($_GET["page"]) && !empty($_GET["page"])) { $page  = intval($_GET["page"]); } else { $page=1; }; 
