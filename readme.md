@@ -4,7 +4,7 @@ Type | Value
 ------------ | -------------
 copyright | adRom Media Marketing GmbH 2015
 author | Benjamin Gök <b.goek@adrom.net>
-version | 1.4.1
+version | 1.4.2
 
 ## German
  
