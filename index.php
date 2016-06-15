@@ -29,9 +29,10 @@
 			}
 
 			if (isset($_GET["page"]) && !empty($_GET["page"])) { $page  = intval($_GET["page"]); } else { $page=1; }; 
+			
 			$start_from = ($page-1) * $items_per_page; 
 
-			$selectQuery = "SELECT id, returnPath, recipient, transactionId, timestamp, bounceType, reason, mailingId, delivered, type FROM `".$db_prefix . $db_table."`";
+			$selectQuery = "SELECT id, senderDomain, ipAddress, recipient, transactionId, timestamp, bounceType, reason, mailingId, delivered, type FROM `".$db_prefix . $db_table."`";
 
 			//QUERY-STRING: if is search
 			if(isset($_GET['recipient']) && !empty($_GET['recipient'])){
@@ -46,7 +47,7 @@
 			if(isset($_GET['recipient']) && !empty($_GET['recipient'])){	
 				$search = $conn->real_escape_string($_GET['recipient']);
 				$stmt->bind_param("sii", $search, $start_from, $items_per_page);
-			} else {
+			} else {			
 				$stmt->bind_param("ii", $start_from, $items_per_page);
 			}
 
@@ -78,25 +79,26 @@
 			 <th style="width:140px;">Timestamp</th>
 			 <th>Recipient</th>     
 			 <?php if($returnPathVisible == true){ ?>
-				<th>ReturnPath</th>
+				<th>SenderDomain</th>
 			 <?php } ?>
 			 <th>BounceType</th>
 			 <th>Reason</th>
 			 <th>MailingId</th>
 			 <th>Delivered</th>
+			 <th>IpAddress</th>
 			 <th>Type</th>
 		  </tr>
 		 </thead>
 		 <tbody>
 		<?php 
-		$stmt->bind_result($id, $returnPath, $recipient, $transactionId, $timestamp, $bounceType, $reason, $mailingId, $delivered, $type);
+		$stmt->bind_result($id, $senderDomain, $ipAddress, $recipient, $transactionId, $timestamp, $bounceType, $reason, $mailingId, $delivered, $type);
 		while ($stmt->fetch()) {				
 		?> 
 			<tr class="<?php echo QueueType::getName($type); ?>">
 				<td><?php echo date('d.m.Y H:i:s',strtotime($timestamp)); ?></td>
 				<td><?php echo $recipient; ?></td>		
 				<?php if($returnPathVisible == true){ ?>
-					<td><?php echo $returnPath; ?></td>
+					<td><?php echo $senderDomain; ?></td>
 				<?php } ?>
 				<td><?php echo $bounceType; ?></td>
 				<td><?php echo $reason; ?></td>
@@ -106,6 +108,7 @@
 						echo $delivered == 1 ? "Yes" : 'No'; 
 					}
 				?></td>
+				<td><?php echo $ipAddress; ?></td>
 				<td><?php 								
 					echo QueueType::getName($type);
 				?></td>

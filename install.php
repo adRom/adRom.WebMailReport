@@ -18,15 +18,16 @@ else
 	//CREATE TABLE IF NOT EXIST
 	$createTableQuery = "CREATE TABLE `".$db_name."`.`". $db_prefix . $db_table . "` ( 
 	`id` INT NULL AUTO_INCREMENT , 
-	`returnPath` VARCHAR(100) NULL , 
-	`recipient` VARCHAR(100) NOT NULL , 
-	`transactionId` VARCHAR(100) NULL , 
-	`timestamp` TIMESTAMP NOT NULL , 
-	`bounceType` VARCHAR(100) NOT NULL , 
+	`senderDomain` VARCHAR(100) NULL ,
+	`ipAddress` VARCHAR(100) NULL ,
+	`recipient` VARCHAR(100) NOT NULL ,
+	`transactionId` VARCHAR(100) NULL ,
+	`timestamp` TIMESTAMP NOT NULL ,
+	`bounceType` VARCHAR(100) NOT NULL ,
 	`reason` VARCHAR(500) NOT NULL,
-	`mailingId` INT unsigned NULL , 
+	`mailingId` INT unsigned NULL ,
 	`delivered` INT unsigned NULL ,
-	`type` INT unsigned NULL COMMENT '1=bounce, 2=sendlog, 3=feedbackloop' ,
+	`type` INT unsigned NULL COMMENT '1=bounce, 2=sendlog, 3=feedbackloop',
 	primary key (id) ) ENGINE = InnoDB";
 
 	if ($conn->query($createTableQuery) === FALSE) {

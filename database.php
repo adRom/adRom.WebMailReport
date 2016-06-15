@@ -15,7 +15,7 @@ class Database {
 
 	function insert_sendlog($conn, $jsondata, $db_prefix, $db_table){
 	
-		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, reason, delivered, type) VALUES (?,?,?,?,?,?,?)");
+		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (senderDomain, recipient, transactionId, timestamp, reason, delivered, type, ipAddress) VALUES (?,?,?,?,?,?,?,?)");
 		
 		if($stmt == false)
 		{
@@ -24,17 +24,18 @@ class Database {
 		}
 		else 
 		{		
-			$stmt->bind_param("sssssii", $returnPath, $recipient, $transactionId, $timestamp, $reason, $delivered, $type);
+			$stmt->bind_param("sssssiis", $senderDomain, $recipient, $transactionId, $timestamp, $reason, $delivered, $type, $ipAddress);
 			foreach($jsondata as $item)
 			{
 				$recipient = $item['recipient'];
 				$transactionId = $item['transactionId'];
 				$timestamp = $item['timestamp'];
-				$returnPath = $item['returnPath'];
+				$senderDomain = $item['senderDomain'];
 				$delivered = $item['delivered'];
 				$reason = $item['reason'];
 				$reason = $conn->real_escape_string($reason);
 				$type = QueueType::SendLog;
+				$ipAddress = $item['ipAddress'];
 				
 				if($stmt->execute() === FALSE){
 					$this->mysqliResult['ok'] = false;	
@@ -48,7 +49,7 @@ class Database {
 
 	function insert_bounce($conn, $jsondata, $db_prefix, $db_table){
 	
-		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, bounceType, reason, type) VALUES (?,?,?,?,?,?,?)");
+		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (senderDomain, recipient, transactionId, timestamp, bounceType, reason, type) VALUES (?,?,?,?,?,?,?)");
 		
 		if($stmt == false)
 		{
@@ -57,13 +58,13 @@ class Database {
 		}
 		else 
 		{		
-			$stmt->bind_param("ssssssi", $returnPath, $recipient, $transactionId, $timestamp, $bounceType, $reason, $type);
+			$stmt->bind_param("ssssssi", $senderDomain, $recipient, $transactionId, $timestamp, $bounceType, $reason, $type);
 			foreach($jsondata as $item)
 			{
 				$recipient = $item['recipient'];
 				$transactionId = $item['transactionId'];
 				$timestamp = $item['timestamp'];
-				$returnPath = $item['returnPath'];
+				$senderDomain = $item['senderDomain'];
 				$bounceType = $item['bounceType'];
 				$reason = $item['reason'];
 				$reason = $conn->real_escape_string($reason);
@@ -81,7 +82,7 @@ class Database {
 
 	function insert_feedbackloop($conn, $jsondata, $db_prefix, $db_table){
 	
-		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (returnPath, recipient, transactionId, timestamp, mailingId, type) VALUES (?,?,?,?,?,?)");
+		$stmt = $conn->prepare("INSERT INTO `" . $db_prefix . $db_table . "` (senderDomain, recipient, transactionId, timestamp, mailingId, type) VALUES (?,?,?,?,?,?)");
 		
 		if($stmt == false)
 		{
@@ -90,13 +91,13 @@ class Database {
 		}
 		else 
 		{		
-			$stmt->bind_param("ssssii", $returnPath, $recipient, $transactionId, $timestamp, $mailingId, $type);
+			$stmt->bind_param("ssssii", $senderDomain, $recipient, $transactionId, $timestamp, $mailingId, $type);
 			foreach($jsondata as $item)
 			{
 				$recipient = $item['recipient'];
 				$transactionId = $item['transactionId'];
 				$timestamp = $item['timestamp'];
-				$returnPath = $item['returnPathDomain'];
+				$senderDomain = $item['senderDomain'];
 				$mailingId = $item['mailingId'];
 				$type = QueueType::FeedbackLoop;			
 				

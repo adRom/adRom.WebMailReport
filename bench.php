@@ -76,9 +76,34 @@ class Logger {
 
 		$jsondata = array();
 		for ($i = 1; $i <= 1000; $i++) {
-			$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "returnPathDomain" => "D", "mailingId" => $i,); //feedbackloop
-			//$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "delivered" => true, "returnPath" => $i, "reason" => 'r'); //sendlog
-			//$jsondata[] = array( "recipient" => "A", "transactionId" => "B", "timestamp" => "C", "returnPath" => $i, "reason" => 'r', 'bounceType' => 1); //bounce
+			
+			// $jsondata[] = array( 
+				// "senderDomain" => "example.com", 
+				// "recipient" => "john.doe@example.com", 
+				// "timestamp" => "2015-02-12T14:59:30Z", 
+				// "bounceType" => "Hardbounce", 
+				// "reason" => "551 user does not exist",
+				// "transactionId" => "abcd1234" 
+			// ); //bounce
+			
+			// $jsondata[] = array(
+				// "senderDomain" => "example.com",
+				// "recipient" => "john.doe@example.com",
+				// "timestamp" => "2015-02-12T14:59:30Z",
+				// "delivered" => true,
+				// "reason" => null,
+				// "transactionId" => "abcd1234",
+				// "ipAddress" => "198.51.100.1",
+			// ); //sendlog /deliveredDropped
+			
+			// $jsondata[] = array(
+				// "senderDomain" => "example.com",
+				// "recipient" => "john.doe@example.com",
+				// "timestamp" => "2015-02-12T14:59:30Z",
+				// "mailingId" => "1",
+				// "transactionId" => "abcd1234",
+			// ); //FeedbackLoop
+			
 		}
 		return $jsondata;
 	}
